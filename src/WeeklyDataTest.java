@@ -100,4 +100,21 @@ class WeeklyDataTest {
     }
 
     @Test
-    v
+    void getMin_typicalValues() {
+        double[] input = {10, 50, 30, 75, 25};
+        WeeklyData wd = new WeeklyData(input);
+
+        assertEquals(10.0, wd.getMin(), 1e-9);
+    }
+
+    @Test
+    void toString_displaysAllValues() {
+        double[] input = {5, 10, 15};
+        WeeklyData wd = new WeeklyData(input);
+
+        String result = wd.toString();
+        assertTrue(result.contains("Day 1"), "toString should display Day 1");
+        assertTrue(result.contains("Day 2"), "toString should display Day 2");
+        assertTrue(result.contains("Day 3"), "toString should display Day 3");
+    }
+}

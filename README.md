@@ -17,6 +17,16 @@ This project simulates how developers build **reusable, well-structured code** t
 
 ---
 
+## 📝 Project Completion
+
+**Student Name:** Akwaen  
+**Project Theme:** Running Workout Time Tracker  
+
+### Description
+This program tracks running workout times for each day of the week (in minutes). Athletes can use this tool to analyze their training patterns, monitor consistency, and receive personalized insights about their fitness progress. The program helps runners track their progression toward fitness goals and adjust their training intensity accordingly.
+
+---
+
 ## 🎯 Learning Goals
 
 By completing this project, you will demonstrate that you can:

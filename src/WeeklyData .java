@@ -3,7 +3,7 @@
  * This could represent steps taken, hours of sleep, money spent, screen time,
  * or any other measurable daily value.
  */
-public class WeeklyData {
+class WeeklyData {
 
     // -------------------------------------------------------------
     // Instance Variables
@@ -11,8 +11,7 @@ public class WeeklyData {
     // TODO: Declare a private array to store the week’s data
     //       Choose an appropriate type (double[] or int[])
     //       Create other instance variables as necessary
-    
-
+        private double[] data;
 
     // -------------------------------------------------------------
     // Constructor
@@ -24,10 +23,19 @@ public class WeeklyData {
      * @param input an array representing 7 days of data
      */
     public WeeklyData(double[] input) {
-        // TODO: (Optional) Check if input is null and handle appropriately
-        // TODO: Create a new array with the same length as input
-        // TODO: Copy each value from input into the internal data array
-        // NOTE: Do NOT do this.data = input; (that would create aliasing)
+        // Check if input is null and handle appropriately
+        if (input == null) {
+            this.data = new double[0];
+            return;
+        }
+        
+        // Create a new array with the same length as input
+        this.data = new double[input.length];
+        
+        // Copy each value from input into the internal data array
+        for (int i = 0; i < input.length; i++) {
+            this.data[i] = input[i];
+        }
     }
 
 
@@ -40,10 +48,16 @@ public class WeeklyData {
      * @return the sum of all values in the data array
      */
     public double getTotal() {
-        // TODO: Create a variable to store the running total
-        // TODO: Use a loop to add each value in the array to the total
-        // TODO: Return the total
-        return 0.0; // replace with your calculated total
+        // Create a variable to store the running total
+        double total = 0.0;
+        
+        // Use a loop to add each value in the array to the total
+        for (int i = 0; i < data.length; i++) {
+            total += data[i];
+        }
+        
+        // Return the total
+        return total;
     }
 
 
@@ -57,10 +71,13 @@ public class WeeklyData {
      *         or 0.0 if the array is empty
      */
     public double getAverage() {
-        // TODO: If the array length is 0, return 0.0
-        // TODO: Otherwise, divide the total by the number of elements
-        // Hint: You may call getTotal()
-        return 0.0; // replace with your calculated average
+        // If the array length is 0, return 0.0
+        if (data.length == 0) {
+            return 0.0;
+        }
+        
+        // Otherwise, divide the total by the number of elements
+        return getTotal() / data.length;
     }
 
 
@@ -73,10 +90,18 @@ public class WeeklyData {
      * @return the maximum value
      */
     public double getMax() {
-        // TODO: Assume the first value is the current maximum
-        // TODO: Loop through the rest of the array and update max as needed
-        // TODO: Return the maximum value found
-        return 0.0; // replace with the maximum value
+        // Assume the first value is the current maximum
+        double max = data[0];
+        
+        // Loop through the rest of the array and update max as needed
+        for (int i = 1; i < data.length; i++) {
+            if (data[i] > max) {
+                max = data[i];
+            }
+        }
+        
+        // Return the maximum value found
+        return max;
     }
 
 
@@ -89,10 +114,18 @@ public class WeeklyData {
      * @return the minimum value
      */
     public double getMin() {
-        // TODO: Assume the first value is the current minimum
-        // TODO: Loop through the rest of the array and update min as needed
-        // TODO: Return the minimum value found
-        return 0.0; // replace with the minimum value
+        // Assume the first value is the current minimum
+        double min = data[0];
+        
+        // Loop through the rest of the array and update min as needed
+        for (int i = 1; i < data.length; i++) {
+            if (data[i] < min) {
+                min = data[i];
+            }
+        }
+        
+        // Return the minimum value found
+        return min;
     }
 
 
@@ -111,10 +144,16 @@ public class WeeklyData {
      */
     @Override
     public String toString() {
-        // TODO: Create a StringBuilder
-        // TODO: Loop through the data array
-        // TODO: Append each value with a day label (Day 1, Day 2, etc.)
-        // TODO: Return the completed String
-        return ""; // replace with your formatted output
+        // Create a StringBuilder
+        StringBuilder sb = new StringBuilder();
+        
+        // Loop through the data array
+        for (int i = 0; i < data.length; i++) {
+            // Append each value with a day label (Day 1, Day 2, etc.)
+            sb.append(String.format("Day %d: %.2f%n", i + 1, data[i]));
+        }
+        
+        // Return the completed String
+        return sb.toString();
     }
 }
