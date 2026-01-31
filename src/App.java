@@ -10,15 +10,36 @@ import java.util.Scanner;
 public class App {
 
     public static void main(String[] args) {
-
-        // TODO 1: Create a Scanner for user input
-        // -------------------------------------------------------
         Scanner scanner = new Scanner(System.in);
+        
+        // Display welcome message and get user's goal
+        String userGoal = displayWelcomeAndGetGoal(scanner);
+        
+        // Collect weekly data from user
+        double[] weekData = collectWeeklyData(scanner);
+        
+        // Create WeeklyData object
+        WeeklyData runningData = new WeeklyData(weekData);
+        
+        // Display analysis results
+        displayAnalysisSummary(runningData);
+        
+        // Display daily breakdown
+        displayDailyBreakdown(runningData);
+        
+        // Display personalized insights
+        displayPersonalizedInsights(runningData, userGoal);
+        
+        scanner.close();
+    }
 
-
-        // TODO 2: Give information about your program
-        //         Ask the user about their goals (if applicable)
-        // -------------------------------------------------------
+    /**
+     * Displays the welcome message and prompts the user for their running goal.
+     * 
+     * @param scanner the Scanner object for user input
+     * @return the user's stated goal as a String
+     */
+    public static String displayWelcomeAndGetGoal(Scanner scanner) {
         System.out.println("=================================================");
         System.out.println("  Welcome to the Running Workout Time Tracker!");
         System.out.println("=================================================");
@@ -29,23 +50,18 @@ public class App {
         System.out.print("Your goal: ");
         String userGoal = scanner.nextLine();
         System.out.println();
+        return userGoal;
+    }
 
-
-        // TODO 3: Create an array to hold 7 days of data
-        //         Use an appropriate data type (int or double)
-        //         Name the array weekData
-        // -------------------------------------------------------
+    /**
+     * Collects running workout times for each day of the week from the user.
+     * Includes input validation to ensure non-negative values.
+     * 
+     * @param scanner the Scanner object for user input
+     * @return an array of doubles representing daily workout times
+     */
+    public static double[] collectWeeklyData(Scanner scanner) {
         double[] weekData = new double[7];
-
-
-        // TODO 4: Use a for loop to collect data for each day of the week
-        //         Prompt example:
-        //         "Enter <data type> for day X: "
-        //
-        //         Include input validation:
-        //         - Use a while loop to prevent negative values
-        //         - Re-prompt if the value is invalid
-        // -------------------------------------------------------
         String[] dayNames = {"Monday", "Tuesday", "Wednesday", "Thursday", 
                              "Friday", "Saturday", "Sunday"};
         
@@ -58,11 +74,9 @@ public class App {
             while (!validInput) {
                 System.out.print(dayNames[i] + ": ");
                 
-                // Check if input is a valid number
                 if (scanner.hasNextDouble()) {
                     double input = scanner.nextDouble();
                     
-                    // Validate that the value is not negative
                     if (input >= 0) {
                         weekData[i] = input;
                         validInput = true;
@@ -71,29 +85,22 @@ public class App {
                     }
                 } else {
                     System.out.println("Error: Please enter a valid number.");
-                    scanner.nextLine(); // Clear the invalid input
+                    scanner.nextLine();
                 }
             }
         }
-        scanner.nextLine(); // Clear the newline after the last double input
+        scanner.nextLine();
         System.out.println();
+        return weekData;
+    }
 
-
-        // TODO 5: Create a WeeklyData object
-        //         Pass the weekData array into the constructor
-        // -------------------------------------------------------
-        WeeklyData runningData = new WeeklyData(weekData);
-
-
-        // TODO 6: Display the results of the analysis
-        //         Call methods from WeeklyData to display:
-        //         - Total
-        //         - Average
-        //         - Minimum
-        //         - Maximum
-        //
-        //         Use clear labels and formatted output if needed
-        // -------------------------------------------------------
+    /**
+     * Displays a summary of the weekly running analysis including total, average,
+     * maximum, and minimum workout times.
+     * 
+     * @param runningData the WeeklyData object containing the analysis
+     */
+    public static void displayAnalysisSummary(WeeklyData runningData) {
         System.out.println("=================================================");
         System.out.println("         Weekly Running Analysis Summary");
         System.out.println("=================================================\n");
@@ -107,29 +114,34 @@ public class App {
         System.out.printf("Shortest Workout:              %.2f minutes%n", 
                          runningData.getMin());
         System.out.println();
+    }
 
-
-        // TODO 7: Display the full week of data
-        //         Use the toString() method from WeeklyData
-        // -------------------------------------------------------
+    /**
+     * Displays the breakdown of daily workout times for the entire week.
+     * 
+     * @param runningData the WeeklyData object containing daily data
+     */
+    public static void displayDailyBreakdown(WeeklyData runningData) {
         System.out.println("-------------------------------------------------");
         System.out.println("Daily Breakdown:");
         System.out.println("-------------------------------------------------");
         System.out.print(runningData.toString());
         System.out.println();
+    }
 
-
-        // TODO 8: Give the user insights about their week
-        //         --> "You need to drink more water next week!"
-        //         --> "You were very hydrated this week!"
-        //         --> etc.
-        // -------------------------------------------------------
+    /**
+     * Displays personalized insights and motivational feedback based on the user's
+     * weekly running data and their stated goal.
+     * 
+     * @param runningData the WeeklyData object containing the analysis
+     * @param userGoal the user's stated running goal
+     */
+    public static void displayPersonalizedInsights(WeeklyData runningData, String userGoal) {
         System.out.println("=================================================");
         System.out.println("              Personalized Insights");
         System.out.println("=================================================\n");
         
         double totalMinutes = runningData.getTotal();
-        double averageMinutes = runningData.getAverage();
         double maxMinutes = runningData.getMax();
         double minMinutes = runningData.getMin();
         
@@ -176,8 +188,5 @@ public class App {
         System.out.println("\n=================================================");
         System.out.println("          Thanks for using Running Tracker!");
         System.out.println("=================================================\n");
-        
-        scanner.close();
-
     }
 }
